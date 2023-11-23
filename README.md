@@ -1,9 +1,7 @@
 # Lua tracing POC
 
 ## Requirements
-* long-lived connections between client and server
-* server only able to accept a single connection at a time
-* new requests routed to servers with no current requests
+* Ability to add envoy `%RESPONSE_CODE_DETAILS%` to spans
 
 ## Testing
 The setup script will create a kind cluster, a local registry, build the server and client docker images, tag them, 
