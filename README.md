@@ -72,13 +72,10 @@ kubectl apply -f charts/
 
 View the traces
 ```shell
-export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=zipkin,app.kubernetes.io/instance=openzipkin" -o jsonpath="{.items[0].metadata.name}")
-export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-# port forward to access zipkin
-kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+kubectl port-forward -n observability <jaeger-pod> 16686:16686
 ```
 
-Visit http://127.0.0.1:8080 to access Zipkin UI
+Go to http://localhost:16686 in your browser to view the jaeger UI.
 
 Cleanup
 ```shell

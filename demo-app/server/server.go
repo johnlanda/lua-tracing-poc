@@ -27,7 +27,7 @@ func main() {
 	defer reporter.Close()
 
 	// create local service endpoint
-	endpoint, err := zipkin.NewEndpoint("exampleServer", addr)
+	endpoint, err := zipkin.NewEndpoint("server", addr)
 	if err != nil {
 		log.Fatalf("failed to create client: %+v\n", err)
 	}

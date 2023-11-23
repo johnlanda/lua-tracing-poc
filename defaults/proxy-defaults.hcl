@@ -32,7 +32,7 @@ EOF
             "endpoint":{
               "address":{
                 "socket_address":{
-                  "address":"jaeger.observability.svc.cluster.local",
+                  "address":"jaeger-collector.observability.svc.cluster.local",
                   "port_value":9411
                 }
               }

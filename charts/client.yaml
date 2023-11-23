@@ -60,4 +60,4 @@ spec:
             - name: SERVER_SERVICE_URL
               value: "localhost:8000"
             - name: ZIPKIN_HTTP_URL
-              value: "http://jaeger-agent.observability.svc.cluster.local:9411/api/v2/spans"
+              value: "http://jaeger-collector.observability.svc.cluster.local:9411/api/v2/spans"
