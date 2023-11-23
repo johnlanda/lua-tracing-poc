@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client
+  namespace: default
+  labels:
+    app: client
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8001
+      targetPort: 8001
+  selector:
+    app: client
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: client
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: client
+  namespace: default
+spec:
+  protocol: "http"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: client
+      app: client
+  template:
+    metadata:
+      labels:
+        service: client
+        app: client
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/connect-service-upstreams: "server:8000"
+    spec:
+      serviceAccountName: client
+      containers:
+        - name: client
+          image: localhost:5001/lua-tracing-poc-client:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8001
+          env:
+            - name: SERVER_SERVICE_URL
+              value: "localhost:8000"
+            - name: ZIPKIN_HTTP_URL
+              value: "http://jaeger-agent.observability.svc.cluster.local:9411/api/v2/spans"
