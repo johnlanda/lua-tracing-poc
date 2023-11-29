@@ -1,7 +1,4 @@
-# Lua tracing POC
-
-## Requirements
-* Ability to add envoy `%RESPONSE_CODE_DETAILS%` to spans
+# Lua filter and tracing demo
 
 ## Testing
 The setup script will create a kind cluster, a local registry, build the server and client docker images, tag them, 
